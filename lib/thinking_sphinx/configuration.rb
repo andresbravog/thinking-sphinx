@@ -98,6 +98,10 @@ class ThinkingSphinx::Configuration < Riddle::Configuration
     @settings ||= File.exists?(settings_file) ? settings_to_hash : {}
   end
 
+  def delta_settings
+    @delta_settings ||= @settings.delete('delta_settings') || {}
+  end
+
   private
 
   def configure_searchd
@@ -143,6 +147,8 @@ class ThinkingSphinx::Configuration < Riddle::Configuration
       'db', 'sphinx', environment
     ).to_s
     @version = settings['version'] || '2.0.6'
+
+    delta_settings
 
     configure_searchd
 
