@@ -107,7 +107,7 @@ class ThinkingSphinx::Configuration < Riddle::Configuration
   def configure_searchd
     configure_searchd_log_files
 
-    searchd.binlog_path = tmp_path.join('binlog', environment).to_s
+    searchd.binlog_path = settings['binlog_path'] || tmp_path.join('binlog', environment).to_s
     searchd.address = settings['address'].presence || Defaults::ADDRESS
     searchd.mysql41 = settings['mysql41'] || settings['port'] || Defaults::PORT
     searchd.workers = 'threads'
